@@ -5,6 +5,7 @@ import random
 import configparser
 import json
 import monero
+from monero.seed import Seed
 
 # from monero.backends.offline import OfflineWallet, WalletIsOffline
 
@@ -22,7 +23,7 @@ class Wallet:
     def __init__(self,_config):
         self.SEEDPHRASE = self.loadOrCreate(_config)
         #This is the seed class
-        self.seed = monero.seed.Seed(self.SEEDPHRASE)
+        self.seed = Seed(self.SEEDPHRASE)
 
     def getPublicAddress(self):
         return self.seed.public_address()
@@ -31,7 +32,7 @@ class Wallet:
 
     def loadOrCreate(self,_config):
         if _config is not None:
-            seed = monero.seed.Seed().phrase
+            seed = Seed().phrase
         else:
             seed = _config["seed"]
         return seed
